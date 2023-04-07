@@ -5,43 +5,52 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-class Game{
+enum class Category {
+    Pop,
+    Science,
+    Sports,
+    Rock,
 
-		private:
-            std::vector<std::string> players;
+    COUNT,
+};
 
-            int places[6];
-			int purses[6];
+struct Player {
+    std::string name{""};
+    int         place{0};
+    int         purse{0};
+    bool        inPenaltyBox{false};
+}
 
-			bool inPenaltyBox[6];
+class Game {
+private:
+    std::vector<Player> _players{};
 
-            std::list<std::string> popQuestions;
-            std::list<std::string> scienceQuestions;
-            std::list<std::string> sportsQuestions;
-            std::list<std::string> rockQuestions;
+    std::list<std::string> _popQuestions{};
+    std::list<std::string> _scienceQuestions{};
+    std::list<std::string> _sportsQuestions{};
+    std::list<std::string> _rockQuestions{};
 
-            unsigned int currentPlayer;
-			bool isGettingOutOfPenaltyBox;
+    unsigned int _currentPlayer{};
+    bool         _isGettingOutOfPenaltyBox{};
 
 public:
-	Game();
+    Game();
     std::string createRockQuestion(int index);
-    bool isPlayable();
+    bool        isPlayable() const;
     bool        add(std::string playerName);
 
-    int howManyPlayers();
-	void roll(int roll);
+    int  howManyPlayers() const;
+    void roll(int roll);
 
-	private:
-		void askQuestion();
-        std::string currentCategory();
+    /// Returns false iff the current player has won
+    bool on_correct_answer();
+    bool wrongAnswer();
 
-    public:
-        bool wasCorrectlyAnswered();
-        bool wrongAnswer();
+private:
+    void        askQuestion();
+    std::string currentCategory();
 
-    private:
-        bool didPlayerWin();
+    bool didPlayerWin();
 };
 
 #endif /* GAME_H_ */

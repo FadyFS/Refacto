@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdexcept>
 #include "Game.hpp"
 
 static bool notAWinner;
@@ -13,19 +14,21 @@ int main()
 	aGame.add("Pat");
 	aGame.add("Sue");
 
-	do
-	{
+    if (!aGame.isPlayable())
+        throw std::runtime_error{"Not enough players to play."};
 
-		aGame.roll(rand() % 5 + 1);
+    do
+    {
+        aGame.roll(rand() % 5 + 1);
 
-		if (rand() % 9 == 7)
-		{
-			notAWinner = aGame.wrongAnswer();
-		}
-		else
-		{
-			notAWinner = aGame.wasCorrectlyAnswered();
-		}
-	} while (notAWinner);
-
+        if (rand() % 9 == 7)
+        {
+            notAWinner = !aGame.wrongAnswer();
+        }
+        else
+        {
+            notAWinner = !aGame.on_correct_answer();
+        }
+        switch_to_next_player();
+    } while (notAWinner);
 }
