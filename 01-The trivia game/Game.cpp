@@ -4,6 +4,81 @@
 #include <iostream>
 #include <sstream>
 
+//Setters
+void Game::setPlayers(const std::vector<std::string>& players) {
+	this->players = players;
+}
+
+void Game::setPlaces(const std::array<int, 6>& places) {
+		this->places = places;
+}
+
+void Game::setPurses(const std::array<int, 6>& purses) {
+	this->purses = purses;
+}
+
+void Game::setInPenaltyBox(const std::array<bool, 6>& inPenaltyBox) {
+	this->inPenaltyBox = inPenaltyBox;
+}
+
+void Game::setPopQuestions(const std::list<std::string>& popQuestions) {
+	this->popQuestions = popQuestions;
+}
+
+void Game::setScienceQuestions(const std::list<std::string>& scienceQuestions) {
+	this->scienceQuestions = scienceQuestions;
+}
+
+void Game::setSportsQuestions(const std::list<std::string>& sportsQuestions) {
+	this->sportsQuestions = sportsQuestions;
+}
+
+void Game::setRockQuestions(const std::list<std::string>& rockQuestions) {
+	this->rockQuestions = rockQuestions;
+}
+
+void Game::setCurrentPlayer(const unsigned int& currentPlayer) {
+	this->currentPlayer = currentPlayer;
+}
+
+void Game::setIsGettingOutOfPenaltyBox(const bool& isGettingOutOfPenaltyBox) {
+	this->isGettingOutOfPenaltyBox = isGettingOutOfPenaltyBox;
+}
+
+//Getters 
+const std::vector<std::string>& Game::getPlayers() const {
+	return players;
+}
+const std::array<int, 6>& Game::getPlaces() const {
+	return places;
+}
+const std::array<int, 6>& Game::getPurses() const {
+	return purses;
+}
+const std::array<bool, 6>& Game::getInPenaltyBox() const {
+	return inPenaltyBox;
+}
+const std::list<std::string>& Game::getPopQuestions() const {
+	return popQuestions;
+}
+const std::list<std::string>& Game::getScienceQuestions() const {
+	return scienceQuestions;
+}
+const std::list<std::string>& Game::getSportsQuestions() const {
+	return sportsQuestions;
+}
+const std::list<std::string>& Game::getRockQuestions() const {
+	return rockQuestions;
+}
+const unsigned int& Game::getCurrentPlayer() const {
+	return currentPlayer;
+}
+const bool& Game::getIsGettingOutOfPenaltyBox() const {
+	return isGettingOutOfPenaltyBox;
+}
+
+
+
 Game::Game() : places{}, purses{}, currentPlayer(0){
 	for (int i = 0; i < 50; i++)
 	{
