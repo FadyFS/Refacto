@@ -155,27 +155,33 @@ void Game::roll(int roll)
 
 void Game::askQuestion()
 {
-	if (currentCategory() == "Pop")
-	{
-		std::cout << popQuestions.front() << std::endl;
-		popQuestions.pop_front();
-	}
-	if (currentCategory() == "Science")
-	{
-		std::cout << scienceQuestions.front() << std::endl;
-		scienceQuestions.pop_front();
-	}
-	if (currentCategory() == "Sports")
-	{
-		std::cout << sportsQuestions.front() << std::endl;
-		sportsQuestions.pop_front();
-	}
-	if (currentCategory() == "Rock")
-	{
-		std::cout << rockQuestions.front() << std::endl;
-		rockQuestions.pop_front();
-	}
+    std::string category = currentCategory();
+    std::list<std::string>* questionList = nullptr;
+	
+    if (category == "Pop")
+    {
+        questionList = &popQuestions;
+    }
+    else if (category == "Science")
+    {
+        questionList = &scienceQuestions;
+    }
+    else if (category == "Sports")
+    {
+        questionList = &sportsQuestions;
+    }
+    else if (category == "Rock")
+    {
+        questionList = &rockQuestions;
+    }
+
+    if (questionList && !questionList->empty())
+    {
+        std::cout << questionList->front() << std::endl;
+        questionList->erase(questionList->begin());
+    }
 }
+
 
 
 std::string Game::currentCategory()
