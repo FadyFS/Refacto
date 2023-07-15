@@ -157,7 +157,7 @@ void Game::askQuestion()
 {
     std::string category = currentCategory();
     std::list<std::string>* questionList = nullptr;
-	
+
     if (category == "Pop")
     {
         questionList = &popQuestions;
@@ -198,69 +198,57 @@ std::string Game::currentCategory()
     return "Rock";
 }
 
-
-
-
 bool Game::wasCorrectlyAnswered()
 {
-	if (inPenaltyBox[currentPlayer])
-	{
-		if (isGettingOutOfPenaltyBox)
-		{
-			std::cout << "Answer was correct!!!!" << std::endl;
-			purses[currentPlayer]++;
-			std::cout << players[currentPlayer]
-			     << " now has "
-			     << purses[currentPlayer]
-				<<  " Gold Coins." << std::endl;
-
-			bool winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-
-			return winner;
-		}
-		else
-		{
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-			return true;
-		}
-
-
-
-	}
-	else
-	{
-
-		std::cout << "Answer was corrent!!!!" << std::endl;
-		purses[currentPlayer]++;
-		std::cout << players[currentPlayer]
-				<< " now has "
-				<< purses[currentPlayer]
-			<< " Gold Coins." << std::endl;
-
-		bool winner = didPlayerWin();
-		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
-
-		return winner;
-	}
+    if (inPenaltyBox[currentPlayer])
+    {
+        if (isGettingOutOfPenaltyBox)
+        {
+            incrementPlayerScore();
+            bool winner = didPlayerWin();
+            updateCurrentPlayer();
+            return winner;
+        }
+        else
+        {
+            updateCurrentPlayer();
+            return true;
+        }
+    }
+    else
+    {
+        incrementPlayerScore();
+        bool winner = didPlayerWin();
+        updateCurrentPlayer();
+        return winner;
+    }
 }
 
 bool Game::wrongAnswer()
 {
-	std::cout << "Question was incorrectly answered" << std::endl;
-	std::cout << players[currentPlayer] + " was sent to the penalty box" << std::endl;
-	inPenaltyBox[currentPlayer] = true;
+    std::cout << "Question was incorrectly answered" << std::endl;
+    std::cout << players[currentPlayer] + " was sent to the penalty box" << std::endl;
+    inPenaltyBox[currentPlayer] = true;
 
-	currentPlayer++;
-	if (currentPlayer == players.size()) currentPlayer = 0;
-	return true;
+    updateCurrentPlayer();
+    return true;
 }
-
 
 bool Game::didPlayerWin()
 {
-	return !(purses[currentPlayer] == 6);
+    return !(purses[currentPlayer] == 6);
+}
+
+void Game::incrementPlayerScore()
+{
+    std::cout << "Answer was correct!!!!" << std::endl;
+    purses[currentPlayer]++;
+    std::cout << players[currentPlayer] << " now has " << purses[currentPlayer] << " Gold Coins." << std::endl;
+}
+
+void Game::updateCurrentPlayer()
+{
+    currentPlayer++;
+    if (currentPlayer == players.size())
+        currentPlayer = 0;
 }

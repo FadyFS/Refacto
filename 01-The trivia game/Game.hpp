@@ -46,7 +46,7 @@ class Game{
 			const unsigned int& getCurrentPlayer() const;
 			const bool& getIsGettingOutOfPenaltyBox() const;
 
-
+			//Methods	
 			std::string createRockQuestion(int index);
 			std::string currentCategory();
 			bool isPlayable();
@@ -57,6 +57,8 @@ class Game{
 			int howManyPlayers();
 			void roll(int roll);
 			void askQuestion();
+			void updateCurrentPlayer();
+			void incrementPlayerScore();
 
 };
 
