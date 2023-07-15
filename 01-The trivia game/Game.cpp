@@ -105,6 +105,10 @@ std::string Game::createRockQuestion(int index)
 	sprintf(indexStr, "Rock Question %d", index);
 	return indexStr;
 }
+int Game::howManyPlayers()
+{
+	return players.size();
+}
 
 bool Game::isPlayable()
 {
