@@ -89,11 +89,11 @@ Game::Game() : places{}, purses{}, currentPlayer(0){
 
 		char str[255];
 		sprintf(str, "Science Question %d", i);
-		scienceQuestions.push_back(str);
+		scienceQuestions.emplace_back(str);
 
 		char str1[255];
 		sprintf(str1, "Sports Question %d", i);
-		sportsQuestions.push_back(str1);
+		sportsQuestions.emplace_back(str1);
 
 		rockQuestions.push_back(createRockQuestion(i));
 	}
@@ -113,9 +113,10 @@ bool Game::isPlayable()
 
 bool Game::add(std::string playerName){
 	players.push_back(playerName);
-	places[howManyPlayers()] = 0;
-	purses[howManyPlayers()] = 0;
-	inPenaltyBox[howManyPlayers()] = false;
+	int players_num = howManyPlayers();
+	places[players_num] = 0;
+	purses[players_num] = 0;
+	inPenaltyBox[players_num] = false;
 
 	std::cout << playerName << " was added" << std::endl;
 	std::cout << "They are player number " << players.size() << std::endl;
@@ -124,7 +125,7 @@ bool Game::add(std::string playerName){
 
 int Game::howManyPlayers()
 {
-	return players.size();
+	return static_cast<int>(players.size());
 }
 
 void Game::roll(int roll)
@@ -193,17 +194,20 @@ void Game::askQuestion()
 
 std::string Game::currentCategory()
 {
-	if (places[currentPlayer] == 0) return "Pop";
-	if (places[currentPlayer] == 4) return "Pop";
-	if (places[currentPlayer] == 8) return "Pop";
-	if (places[currentPlayer] == 1) return "Science";
-	if (places[currentPlayer] == 5) return "Science";
-	if (places[currentPlayer] == 9) return "Science";
-	if (places[currentPlayer] == 2) return "Sports";
-	if (places[currentPlayer] == 6) return "Sports";
-	if (places[currentPlayer] == 10) return "Sports";
-	return "Rock";
+    int currentPlace = places[currentPlayer];
+
+    if (currentPlace == 0 || currentPlace == 4 || currentPlace == 8)
+        return "Pop";
+    else if (currentPlace == 1 || currentPlace == 5 || currentPlace == 9)
+        return "Science";
+    else if (currentPlace == 2 || currentPlace == 6 || currentPlace == 10)
+        return "Sports";
+
+    return "Rock";
 }
+
+
+
 
 bool Game::wasCorrectlyAnswered()
 {

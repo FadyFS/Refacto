@@ -51,9 +51,9 @@ class Game{
 			std::string currentCategory();
 			bool isPlayable();
 			bool add(std::string playerName);
-			bool wasCorrectlyAnswered();
-			bool wrongAnswer();
-			bool didPlayerWin();
+			bool wasCorrectlyAnswered(); //Repeat itself
+			bool wrongAnswer(); //Repeat itself
+			bool didPlayerWin(); //Repeat itself
 			int howManyPlayers();
 			void roll(int roll);
 			void askQuestion();
