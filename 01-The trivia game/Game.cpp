@@ -123,49 +123,35 @@ bool Game::add(std::string playerName){
 	return true;
 }
 
-int Game::howManyPlayers()
-{
-	return static_cast<int>(players.size());
-}
-
 void Game::roll(int roll)
 {
-	std::cout << players[currentPlayer] << " is the current player" << std::endl;
-	std::cout << "They have rolled a " << roll << std::endl;
+    std::cout << players[currentPlayer] << " is the current player" << std::endl;
+    std::cout << "They have rolled a " << roll << std::endl;
 
-	if (inPenaltyBox[currentPlayer])
-	{
-		if (roll % 2 != 0)
-		{
-			isGettingOutOfPenaltyBox = true;
+    if (inPenaltyBox[currentPlayer])
+    {
+        if (roll % 2 != 0)
+        {
+            isGettingOutOfPenaltyBox = true;
+            std::cout << players[currentPlayer] << " is getting out of the penalty box" << std::endl;
+        }
+        else
+        {
+            std::cout << players[currentPlayer] << " is not getting out of the penalty box" << std::endl;
+            isGettingOutOfPenaltyBox = false;
+            return;  // Skip the common code for players in penalty box who don't get out
+        }
+    }
 
-			std::cout << players[currentPlayer] << " is getting out of the penalty box" << std::endl;
-			places[currentPlayer] = places[currentPlayer] + roll;
-			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+    places[currentPlayer] = places[currentPlayer] + roll;
+    if (places[currentPlayer] > 11)
+        places[currentPlayer] = places[currentPlayer] - 12;
 
-			std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
-			std::cout << "The category is " << currentCategory() << std::endl;
-			askQuestion();
-		}
-		else
-		{
-			std::cout << players[currentPlayer] << " is not getting out of the penalty box" << std::endl;
-			isGettingOutOfPenaltyBox = false;
-		}
-
-	}
-	else
-	{
-
-		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-
-		std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
-		std::cout << "The category is " << currentCategory() << std::endl;
-		askQuestion();
-	}
-
+    std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
+    std::cout << "The category is " << currentCategory() << std::endl;
+    askQuestion();
 }
+
 
 void Game::askQuestion()
 {
