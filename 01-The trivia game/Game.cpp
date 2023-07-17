@@ -112,7 +112,7 @@ bool Game::isPlayable()
 	return (howManyPlayers() >= 2);
 }
 
-bool Game::add(std::string playerName){
+bool Game::add(const std::string& playerName){
 	players.push_back(playerName);
 	int players_num = howManyPlayers();
 	places.at(players_num) = 0;

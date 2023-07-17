@@ -47,13 +47,13 @@ class Game{
 			const bool& getIsGettingOutOfPenaltyBox() const;
 
 			//Methods	
-			std::string createRockQuestion(int index);
+			static std::string createRockQuestion(int index);
 			std::string currentCategory();
 			bool isPlayable();
-			bool add(std::string playerName);
-			bool wasCorrectlyAnswered(); //Repeat itself
-			bool wrongAnswer(); //Repeat itself
-			bool didPlayerWin(); //Repeat itself
+			bool add(const std::string& playerName);
+			bool wasCorrectlyAnswered(); 
+			bool wrongAnswer(); 
+			bool didPlayerWin(); 
 			int howManyPlayers();
 			void roll(int roll);
 			void askQuestion();

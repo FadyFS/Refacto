@@ -1,31 +1,28 @@
-#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
+#include <random>
 #include "Game.hpp"
 
-static bool notAWinner;
+int main() {
+    std::srand(std::time(nullptr));
+    Game aGame;
 
-int main()
-{
+    aGame.add("Chet");
+    aGame.add("Pat");
+    aGame.add("Sue");
 
-	srand(time(nullptr));
-	Game aGame;
+    while (true) {
+        aGame.roll(std::rand() % 5 + 1);
 
-	aGame.add("Chet");
-	aGame.add("Pat");
-	aGame.add("Sue");
-
-	do
-	{
-
-		aGame.roll(rand() % 5 + 1);
-
-		if (rand() % 9 == 7)
-		{
-			notAWinner = aGame.wrongAnswer();
-		}
-		else
-		{
-			notAWinner = aGame.wasCorrectlyAnswered();
-		}
-	} while (notAWinner);
-
+        if (std::rand() % 9 == 7) {
+            if (!aGame.wrongAnswer()) {
+                break;
+            }
+        } else {
+            if (!aGame.wasCorrectlyAnswered()) {
+                break;
+            }
+        }
+    }
+	return 0;
 }
